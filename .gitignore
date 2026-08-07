@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# generated output
+cleaned.csv
+*.cleaned.csv
+
+# OS / editor
+.DS_Store
+*.swp

@@ -1,0 +1,4 @@
+pandas>=2.0
+
+# optional — only needed for the LLM-driven planner (LLMPlanner):
+# anthropic>=0.40
