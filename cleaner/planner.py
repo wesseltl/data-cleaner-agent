@@ -79,6 +79,9 @@ class LLMPlanner:
         prompt = (
             "You are a data-cleaning planner. Given a column profile, decide which tools to run.\n\n"
             f"{TOOL_CATALOG}\n\n"
+            "IMPORTANT: for standardize_categorical, do NOT invent your own mapping. Use EXACTLY this "
+            "canonical mapping as the `mapping` param, without dropping or changing any entry:\n"
+            f"{json.dumps(COUNTRY_MAP, indent=2)}\n\n"
             f"Column profile:\n{json.dumps(profile, indent=2)}\n\n"
             'Reply with ONLY a JSON array of actions, each like '
             '{"tool": "...", "column": "...", "params": {}}. No prose.'
@@ -89,4 +92,11 @@ class LLMPlanner:
         # the response may contain a thinking block before the text — take the text block(s) only
         text = "".join(b.text for b in msg.content if getattr(b, "type", None) == "text").strip()
         text = re.sub(r"^```(json)?|```$", "", text, flags=re.MULTILINE).strip()
-        return json.loads(text)     # the model's plan, ready for the same agent loop
+        plan = json.loads(text)
+
+        # safety net: reference data comes from trusted code, not the model's memory. If the model
+        # chose standardize_categorical without a (complete) mapping, supply the canonical one.
+        for action in plan:
+            if action.get("tool") == "standardize_categorical":
+                action.setdefault("params", {})["mapping"] = COUNTRY_MAP
+        return plan
