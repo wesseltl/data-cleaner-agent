@@ -67,7 +67,7 @@ class LLMPlanner:
     """
     name = "llm"
 
-    def __init__(self, model: str = "claude-sonnet-4-5", api_key: str | None = None):
+    def __init__(self, model: str = "claude-sonnet-5", api_key: str | None = None):
         self.model = model
         self.api_key = api_key
 
