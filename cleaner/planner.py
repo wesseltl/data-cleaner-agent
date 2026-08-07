@@ -84,8 +84,9 @@ class LLMPlanner:
             '{"tool": "...", "column": "...", "params": {}}. No prose.'
         )
         msg = client.messages.create(
-            model=self.model, max_tokens=1024,
+            model=self.model, max_tokens=2048,
             messages=[{"role": "user", "content": prompt}])
-        text = msg.content[0].text.strip()
+        # the response may contain a thinking block before the text — take the text block(s) only
+        text = "".join(b.text for b in msg.content if getattr(b, "type", None) == "text").strip()
         text = re.sub(r"^```(json)?|```$", "", text, flags=re.MULTILINE).strip()
         return json.loads(text)     # the model's plan, ready for the same agent loop
