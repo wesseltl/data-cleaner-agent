@@ -34,9 +34,9 @@ Both return the same action list, so the agent loop is identical, you swap the b
 `standardize_dates` (mixed formats → ISO) · `standardize_categorical` (NL / nederland → Netherlands) ·
 `drop_duplicate_rows`
 
-One tool worth reading: **`standardize_dates`**. `2023-01-05` (year-first, month in the middle) and
+Take **`standardize_dates`**. `2023-01-05` (year-first, month in the middle) and
 `05/01/2023` (day-first) need *opposite* parsing rules, a single global setting corrupts one or the
-other, so the tool decides per value. Mixed dates are a genuinely ambiguous problem, handled honestly.
+other, so the tool decides per value. Mixed dates are genuinely ambiguous, and this handles them explicitly.
 
 ## Run it
 
