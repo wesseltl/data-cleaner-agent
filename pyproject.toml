@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentic-csv-cleaner"
-version = "0.1.1"
+version = "0.1.2"
 description = "Clean messy CSVs with an agentic workflow: an LLM decides the steps, tested code does the work."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -15,7 +15,7 @@ dependencies = ["pandas>=2.0"]
 
 [project.optional-dependencies]
 llm = ["anthropic>=0.40"]
-mcp = ["mcp>=1.0"]
+mcp = ["fastmcp>=2.0"]
 
 [project.urls]
 Homepage = "https://github.com/wesseltl/data-cleaner-agent"
