@@ -1,3 +1,5 @@
+<!-- mcp-name: io.github.wesseltl/data-cleaner-agent -->
+
 # data-cleaner-agent
 
 Clean a messy CSV with an agentic workflow. An LLM decides *which* cleaning steps the data needs, and
