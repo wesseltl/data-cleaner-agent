@@ -1,4 +1,4 @@
-"""Run without installing:  python3 __main__.py <input.csv> [output.csv] [--llm]"""
+"""Enables `python -m cleaner`."""
 from cleaner.cli import main
 
 if __name__ == "__main__":

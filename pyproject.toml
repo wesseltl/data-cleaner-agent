@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data-cleaner-agent"
+version = "0.1.0"
+description = "Clean messy CSVs with an agentic workflow: an LLM decides the steps, tested code does the work."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Wessel ter Laak" }]
+keywords = ["csv", "data-cleaning", "ai-agents", "llm", "etl", "pandas"]
+dependencies = ["pandas>=2.0"]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40"]
+mcp = ["mcp>=1.0"]
+
+[project.urls]
+Homepage = "https://github.com/wesseltl/data-cleaner-agent"
+
+[project.scripts]
+clean-csv = "cleaner.cli:main"
+
+[tool.setuptools]
+packages = ["cleaner"]

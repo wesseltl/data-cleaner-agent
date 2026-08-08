@@ -1,0 +1,4 @@
+pandas>=2.0
+
+[llm]
+anthropic>=0.40
