@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "data-cleaner-agent"
+name = "agentic-csv-cleaner"
 version = "0.1.0"
 description = "Clean messy CSVs with an agentic workflow: an LLM decides the steps, tested code does the work."
 readme = "README.md"

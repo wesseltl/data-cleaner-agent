@@ -25,7 +25,7 @@ duplicate Alice row.
 ## Install & run
 
 ```bash
-pip install git+https://github.com/wesseltl/data-cleaner-agent
+pip install agentic-csv-cleaner
 
 clean-csv messy.csv cleaned.csv       # clean a file
 clean-csv messy.csv                   # or just print the result
@@ -54,7 +54,7 @@ The decision that makes it safe to trust:
 | Planner | What it is | Needs |
 |---|---|---|
 | `RuleBasedPlanner` | Offline heuristics from a quick data profile. The default. | nothing |
-| `LLMPlanner` | Sends the profile + tool list to an LLM, gets back a JSON plan. | `pip install "data-cleaner-agent[llm]"` + `ANTHROPIC_API_KEY` |
+| `LLMPlanner` | Sends the profile + tool list to an LLM, gets back a JSON plan. | `pip install "agentic-csv-cleaner[llm]"` + `ANTHROPIC_API_KEY` |
 
 Both return the same list of steps, so the loop is identical. You swap the brain, not the plumbing.
 
@@ -74,7 +74,7 @@ Other AI agents (Claude Desktop, or any MCP client) can call the cleaner as a to
 a CSV properly instead of reformatting it token by token in the prompt:
 
 ```bash
-pip install "data-cleaner-agent[mcp]"
+pip install "agentic-csv-cleaner[mcp]"
 python -m cleaner.mcp_server
 ```
 
