@@ -11,3 +11,8 @@ cleaned.csv
 # OS / editor
 .DS_Store
 *.swp
+
+# build artifacts
+*.egg-info/
+build/
+dist/
