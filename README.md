@@ -60,6 +60,10 @@ The decision that makes it safe to trust:
 
 Both return the same list of steps, so the loop is identical. You swap the brain, not the plumbing.
 
+The log reports what each step actually did, including where a conversion could not produce a clean
+result (unparseable numbers/dates, unmapped categories), so a clean parse is distinguishable from a
+confident guess.
+
 ## Use it from other code or agents
 
 ```python

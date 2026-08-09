@@ -60,6 +60,16 @@ class TestAgentEndToEnd(unittest.TestCase):
         self.assertEqual(len(cleaned), 4)          # the duplicate Alice row is removed
         self.assertTrue(any("drop_duplicate_rows" in step for step in log))
 
+    def test_log_reports_unparseable_and_unmapped(self):
+        # a value that can't be parsed and a category not in the mapping should be surfaced
+        df = pd.DataFrame({"Country": ["nederland", "MARS"], "Amount": ["100", "n/a"],
+                           "When": ["2023-01-05", "notadate"]})
+        _, log = clean(df)
+        text = " ".join(log)
+        self.assertIn("not in the mapping", text)      # MARS is flagged, not silently kept
+        self.assertIn("MARS", text)
+        self.assertIn("could not be parsed", text)     # "notadate" is flagged
+
 
 if __name__ == "__main__":
     unittest.main()
