@@ -74,17 +74,45 @@ print(result["cleaned_csv"])
 print(result["steps"])
 ```
 
-### As an MCP tool
+### As an MCP tool (Claude Desktop)
 
-Other AI agents (Claude Desktop, or any MCP client) can call the cleaner as a tool, so they can clean
-a CSV properly instead of reformatting it token by token in the prompt:
+Other AI agents can call the cleaner as a tool, so they clean a CSV properly instead of reformatting it
+token by token in the prompt. Three steps:
+
+**1. Install it**
 
 ```bash
 pip install "agentic-csv-cleaner[mcp]"
-python -m cleaner.mcp_server
 ```
 
-This exposes one tool, `clean_csv`, that takes CSV text and returns the cleaned CSV plus the steps.
+**2. Add it to your client's config** (Claude Desktop's config lives at
+`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS, or
+`%APPDATA%\Claude\claude_desktop_config.json` on Windows):
+
+```json
+{
+  "mcpServers": {
+    "csv-cleaner": { "command": "python", "args": ["-m", "cleaner.mcp_server"] }
+  }
+}
+```
+
+**3. Restart Claude Desktop.** The agent now has a `clean_csv` tool that takes CSV text and returns the
+cleaned CSV plus a report of what it did.
+
+## Understanding the report
+
+The tool doesn't just hand back tidy data, it tells you what each step actually did, including where it
+couldn't get a clean result, so you can tell a clean parse from a confident guess:
+
+```
+- coerce_numeric(amount): all 4 value(s) parsed cleanly
+- standardize_dates(signup): 1/3 value(s) could not be parsed, set to null
+- standardize_categorical(country): 1 value(s) not in the mapping, left unchanged: ['MARS']
+```
+
+So instead of silently dropping a value or leaving a wrong category, it surfaces it, and you know
+exactly which cells to double-check.
 
 ## What's in the box
 
