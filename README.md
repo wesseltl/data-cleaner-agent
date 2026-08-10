@@ -100,6 +100,32 @@ pip install "agentic-csv-cleaner[mcp]"
 **3. Restart Claude Desktop.** The agent now has a `clean_csv` tool that takes CSV text and returns the
 cleaned CSV plus a report of what it did.
 
+### Use it with other MCP clients
+
+The same server works in any MCP client, only the config differs. The command is
+`python -m cleaner.mcp_server`.
+
+**Cursor** — `~/.cursor/mcp.json` (global) or `.cursor/mcp.json` (per project), hot-reloads:
+
+```json
+{ "mcpServers": { "csv-cleaner": { "command": "python", "args": ["-m", "cleaner.mcp_server"] } } }
+```
+
+**VS Code / GitHub Copilot** — `.vscode/mcp.json`. Note the different key (`servers`, not `mcpServers`)
+and the required `type`. Tools only run in Copilot **Agent mode**:
+
+```json
+{ "servers": { "csv-cleaner": { "type": "stdio", "command": "python", "args": ["-m", "cleaner.mcp_server"] } } }
+```
+
+**Windsurf** — `~/.codeium/windsurf/mcp_config.json` (create it if missing):
+
+```json
+{ "mcpServers": { "csv-cleaner": { "command": "python", "args": ["-m", "cleaner.mcp_server"] } } }
+```
+
+**Cline** — add it from the extension's MCP settings panel in VS Code.
+
 ## Understanding the report
 
 The tool doesn't just hand back tidy data, it tells you what each step actually did, including where it
